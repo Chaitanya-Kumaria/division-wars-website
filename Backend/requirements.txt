@@ -1,1 +1,4 @@
 # No dependencies found
+pandas==2.2.3
+streamlit
+
