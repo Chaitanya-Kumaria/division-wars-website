@@ -1,0 +1,6 @@
+# Throwball Rules
+
+1.  **Format**: Team sport.
+2.  **Scoring**: Best of 3 sets, 11 points each.
+3.  **Service**: Service must be thrown over the net.
+4.  **Faults**: Dropping the ball, double touch, etc.

@@ -1,0 +1,6 @@
+# Badminton Rules
+
+1.  **Format**: Doubles matches.
+2.  **Scoring**: Best of 3 sets, 21 points each.
+3.  **Service**: Standard badminton service rules apply.
+4.  **Faults**: Touching the net, shuttle landing out, etc.
