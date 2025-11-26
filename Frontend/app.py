@@ -391,22 +391,29 @@ else:
         final_df = pd.merge(s_df, c_df, on='Team', how='outer').fillna(0)
         final_df['Total Points'] = final_df['Sports Points'] + final_df['Cultural Points']
         final_df = final_df.sort_values(by='Total Points', ascending=False).reset_index(drop=True)
+        # Add Position column
+        final_df.insert(0, 'Position', range(1, len(final_df) + 1))
     else:
-        final_df = pd.DataFrame(columns=['Team', 'Total Points'])
+        final_df = pd.DataFrame(columns=['Position', 'Team', 'Total Points'])
 
     # Title
     st.title("🏆 Division Wars 2025")
 
     # Final Points Table
     st.subheader("Final Points Table")
-    st.dataframe(final_df, use_container_width=True)
+    st.dataframe(final_df, use_container_width=True, hide_index=True)
 
     # Tabs
     tab1, tab2 = st.tabs(["🏅 Sports", "🎭 Cultural"])
 
     with tab1:
         st.header("Sports Overall Standings")
-        st.dataframe(sports_df, use_container_width=True)
+        # Add Position column to sports standings
+        sports_display_df = sports_df.copy()
+        if not sports_display_df.empty:
+            sports_display_df = sports_display_df.sort_values(by='Points', ascending=False).reset_index(drop=True)
+            sports_display_df.insert(0, 'Position', range(1, len(sports_display_df) + 1))
+        st.dataframe(sports_display_df, use_container_width=True, hide_index=True)
         
         st.divider()
         
@@ -439,6 +446,10 @@ else:
                 st.markdown("### 📊 Points Table")
                 if os.path.exists(points_path):
                     points_df = pd.read_csv(points_path)
+                    # Add Position column
+                    if 'Points' in points_df.columns:
+                        points_df = points_df.sort_values(by='Points', ascending=False).reset_index(drop=True)
+                        points_df.insert(0, 'Position', range(1, len(points_df) + 1))
                     st.dataframe(points_df, hide_index=True)
                 else:
                     st.info("No points data available.")
@@ -462,4 +473,9 @@ else:
 
     with tab2:
         st.header("Cultural Overall Standings")
-        st.dataframe(cultural_df, use_container_width=True)
+        # Add Position column to cultural standings
+        cultural_display_df = cultural_df.copy()
+        if not cultural_display_df.empty:
+            cultural_display_df = cultural_display_df.sort_values(by='Points', ascending=False).reset_index(drop=True)
+            cultural_display_df.insert(0, 'Position', range(1, len(cultural_display_df) + 1))
+        st.dataframe(cultural_display_df, use_container_width=True, hide_index=True)
