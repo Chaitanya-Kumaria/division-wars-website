@@ -1,0 +1,8 @@
+# Carrom Rules
+
+1. **Format**: Singles or Doubles matches.
+2. **Scoring**: Best of 3 games, 25 points per game.
+3. **Setup**: Standard carrom board with 9 white, 9 black, and 1 red coin.
+4. **Fouls**: Pocketing striker, pocketing opponent's coin, etc.
+5. **Winning**: First player/team to reach 25 points wins the game.
+

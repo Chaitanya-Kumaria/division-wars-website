@@ -311,7 +311,7 @@ def check_password():
             sport = passwords[entered_pwd]
             # Store authorized sports
             if sport == "admin":
-                st.session_state["authorized_sports"] = ["Throwball", "Badminton"]  # All sports
+                st.session_state["authorized_sports"] = ["Throwball", "Badminton", "Carrom"]  # All sports
             else:
                 st.session_state["authorized_sports"] = [sport.title()]
             del st.session_state["password"]  # don't store password
