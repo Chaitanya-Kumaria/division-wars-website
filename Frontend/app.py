@@ -208,6 +208,43 @@ st.markdown("""
         color: #ffffff !important;
     }
     
+    /* Rules Card Styling */
+    .rules-card {
+        background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+        border: 2px solid var(--neon-purple);
+        border-radius: 12px;
+        padding: 2rem;
+        margin: 1rem 0;
+        box-shadow: 0 0 30px rgba(181, 55, 242, 0.3);
+    }
+    
+    .rules-card h1, .rules-card h2, .rules-card h3 {
+        color: var(--neon-orange) !important;
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .rules-card p, .rules-card li {
+        color: #ffffff !important;
+        font-size: 1.1rem;
+        line-height: 1.8;
+        margin-bottom: 0.8rem;
+    }
+    
+    .rules-card ul, .rules-card ol {
+        padding-left: 2rem;
+    }
+    
+    .rules-card li {
+        margin-bottom: 0.5rem;
+        color: #e0e0e0 !important;
+    }
+    
+    .rules-card strong {
+        color: var(--light-purple) !important;
+        font-weight: 700;
+    }
+    
     /* Fix for any remaining dark text */
     * {
         color: #ffffff;
@@ -467,7 +504,8 @@ else:
             if os.path.exists(rules_path):
                 with open(rules_path, "r") as f:
                     rules_content = f.read()
-                st.markdown(rules_content)
+                # Display rules in styled card
+                st.markdown(f'<div class="rules-card">{rules_content}</div>', unsafe_allow_html=True)
             else:
                 st.info("No rules available for this sport.")
 
@@ -479,3 +517,4 @@ else:
             cultural_display_df = cultural_display_df.sort_values(by='Points', ascending=False).reset_index(drop=True)
             cultural_display_df.insert(0, 'Position', range(1, len(cultural_display_df) + 1))
         st.dataframe(cultural_display_df, use_container_width=True, hide_index=True)
+
