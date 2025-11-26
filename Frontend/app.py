@@ -3,7 +3,220 @@ import pandas as pd
 import os
 
 # Set page config
-st.set_page_config(page_title="Division Wars", layout="wide")
+st.set_page_config(page_title="Division Wars", layout="wide", page_icon="🏆", initial_sidebar_state="expanded")
+
+# Custom CSS for Aggressive Tournament Theme
+st.markdown("""
+<style>
+    /* Color Variables */
+    :root {
+        --primary-purple: #7B2CBF;
+        --light-purple: #C77DFF;
+        --primary-orange: #FF6B35;
+        --light-orange: #F77F00;
+        --neon-purple: #B537F2;
+        --neon-orange: #FF8C42;
+    }
+    
+    /* FORCE DARK THEME */
+    .stApp {
+        background: #0d0d0d !important;
+        color: #ffffff !important;
+    }
+    
+    /* Main Background */
+    .main {
+        background: linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 50%, #0d0d0d 100%) !important;
+    }
+    
+    /* Headers with Aggressive Neon Gradient */
+    h1 {
+        background: linear-gradient(90deg, var(--neon-purple) 0%, var(--neon-orange) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 900 !important;
+        font-size: 4rem !important;
+        text-align: center;
+        padding: 1.5rem 0;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        filter: drop-shadow(0 0 20px rgba(181, 55, 242, 0.8));
+    }
+    
+    h2 {
+        color: var(--neon-orange) !important;
+        font-weight: 800 !important;
+        border-bottom: 4px solid var(--neon-purple);
+        padding-bottom: 0.8rem;
+        margin-top: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+    
+    h3 {
+        color: var(--light-purple) !important;
+        font-weight: 700 !important;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    
+    /* Enforce white text everywhere */
+    p, span, div, label, li {
+        color: #ffffff !important;
+    }
+    
+    /* Dataframe Styling */
+    .stDataFrame {
+        background: #000000 !important;
+        border-radius: 8px;
+        padding: 1rem;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        border: 2px solid #ffffff;
+    }
+    
+    /* Data table cells */
+    .stDataFrame table {
+        background: #000000 !important;
+        border-collapse: collapse;
+    }
+    
+    .stDataFrame th {
+        background: #000000 !important;
+        color: #ffffff !important;
+        font-weight: 700 !important;
+        border: 1px solid #555555;
+    }
+    
+    .stDataFrame td {
+        background: #000000 !important;
+        color: #ffffff !important;
+        border: 1px solid #555555;
+    }
+    
+    /* Tabs */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 1rem;
+        background: #1a1a1a !important;
+        padding: 1rem;
+        border-radius: 8px;
+        border: 2px solid var(--neon-purple);
+    }
+    
+    .stTabs [data-baseweb="tab"] {
+        background: #252525;
+        color: #ffffff !important;
+        border-radius: 5px;
+        padding: 1rem 2.5rem;
+        font-weight: 800;
+        border: 2px solid var(--primary-purple);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    
+    .stTabs [aria-selected="true"] {
+        background: linear-gradient(135deg, var(--neon-purple) 0%, var(--neon-orange) 100%) !important;
+        color: #ffffff !important;
+        border: 2px solid var(--neon-orange);
+        box-shadow: 0 0 25px rgba(181, 55, 242, 0.8);
+    }
+    
+    /* Buttons */
+    .stButton > button {
+        background: linear-gradient(135deg, var(--neon-purple) 0%, var(--neon-orange) 100%) !important;
+        color: #ffffff !important;
+        font-weight: 800;
+        border: 2px solid var(--neon-orange) !important;
+        border-radius: 8px;
+        padding: 0.8rem 2.5rem;
+        box-shadow: 0 0 20px rgba(181, 55, 242, 0.6);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    
+    .stButton > button:hover {
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 0 0 30px rgba(181, 55, 242, 1);
+    }
+    
+    /* Selectbox */
+    .stSelectbox > div > div {
+        background: #252525 !important;
+        border: 2px solid var(--neon-purple) !important;
+        border-radius: 8px;
+        color: #ffffff !important;
+    }
+    
+    .stSelectbox option {
+        background: #252525 !important;
+        color: #ffffff !important;
+    }
+    
+    /* Text Input */
+    .stTextInput > div > div > input {
+        background: #252525 !important;
+        border: 2px solid var(--primary-purple) !important;
+        color: #ffffff !important;
+        border-radius: 8px;
+    }
+    
+    /* Sidebar */
+    section[data-testid="stSidebar"] {
+        background: linear-gradient(180deg, #0d0d0d 0%, #1a1a1a 100%) !important;
+        border-right: 3px solid var(--neon-purple);
+    }
+    
+    section[data-testid="stSidebar"] * {
+        color: #ffffff !important;
+    }
+    
+    /* Messages */
+    .stSuccess {
+        background: rgba(181, 55, 242, 0.2) !important;
+        border-left: 5px solid var(--neon-purple) !important;
+        color: #ffffff !important;
+    }
+    
+    .stError {
+        background: rgba(255, 107, 53, 0.2) !important;
+        border-left: 5px solid var(--neon-orange) !important;
+        color: #ffffff !important;
+    }
+    
+    .stWarning, .stInfo {
+        background: rgba(199, 125, 255, 0.2) !important;
+        border-left: 5px solid var(--light-purple) !important;
+        color: #ffffff !important;
+    }
+    
+    /* Divider */
+    hr {
+        border-color: var(--neon-purple) !important;
+        opacity: 0.8;
+    }
+    
+    /* Column containers */
+    [data-testid="column"] {
+        background: rgba(26, 26, 26, 0.6);
+        border-radius: 8px;
+        padding: 1rem;
+        border: 1px solid rgba(181, 55, 242, 0.3);
+    }
+    
+    /* Markdown */
+    .stMarkdown {
+        color: #ffffff !important;
+    }
+    
+    /* Fix for any remaining dark text */
+    * {
+        color: #ffffff;
+    }
+</style>
+""", unsafe_allow_html=True)
+
+
+
 
 # Paths to data
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
