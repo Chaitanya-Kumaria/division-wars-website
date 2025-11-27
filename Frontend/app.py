@@ -1,6 +1,11 @@
 import streamlit as st
 import pandas as pd
 import os
+import sys
+
+# Add Backend to path to import github_utils
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'Backend'))
+from github_utils import save_to_github
 
 # Set page config
 st.set_page_config(page_title="Division Wars", layout="wide", page_icon="🏆", initial_sidebar_state="expanded")
@@ -424,6 +429,7 @@ def admin_interface():
                 if st.button("🔄 Recalculate from Sources"):
                     final_df = recalculate_final_points()
                     final_df.to_csv(FINAL_POINTS_FILE, index=False)
+                    save_to_github(FINAL_POINTS_FILE, final_df.to_csv(index=False), "Recalculated Final Points Table")
                     st.success("Recalculated and saved!")
                     st.rerun()
 
@@ -432,6 +438,7 @@ def admin_interface():
                 edited_df = st.data_editor(df, num_rows="dynamic", key="final_points_editor")
                 if st.button("Save Final Table"):
                     edited_df.to_csv(FINAL_POINTS_FILE, index=False)
+                    save_to_github(FINAL_POINTS_FILE, edited_df.to_csv(index=False), "Updated Final Points Table")
                     st.success("Final Points Table saved!")
             else:
                 st.warning("Final points table not found. Please click Recalculate.")
@@ -444,9 +451,11 @@ def admin_interface():
                 edited_df = st.data_editor(df, num_rows="dynamic", key="sports_overall_editor")
                 if st.button("Save Sports Overall"):
                     edited_df.to_csv(sports_overall_path, index=False)
+                    save_to_github(sports_overall_path, edited_df.to_csv(index=False), "Updated Sports Overall Table")
                     # Auto-recalculate final points
                     final_df = recalculate_final_points()
                     final_df.to_csv(FINAL_POINTS_FILE, index=False)
+                    save_to_github(FINAL_POINTS_FILE, final_df.to_csv(index=False), "Auto-updated Final Points Table")
                     st.success("Sports Overall Table saved and Final Points updated!")
                     st.rerun()
             else:
@@ -460,9 +469,11 @@ def admin_interface():
                 edited_df = st.data_editor(df, num_rows="dynamic", key="cultural_overall_editor")
                 if st.button("Save Cultural Overall"):
                     edited_df.to_csv(cultural_overall_path, index=False)
+                    save_to_github(cultural_overall_path, edited_df.to_csv(index=False), "Updated Cultural Overall Table")
                     # Auto-recalculate final points
                     final_df = recalculate_final_points()
                     final_df.to_csv(FINAL_POINTS_FILE, index=False)
+                    save_to_github(FINAL_POINTS_FILE, final_df.to_csv(index=False), "Auto-updated Final Points Table")
                     st.success("Cultural Overall Table saved and Final Points updated!")
                     st.rerun()
             else:
@@ -486,6 +497,7 @@ def admin_interface():
                 edited_df = st.data_editor(df, num_rows="dynamic")
                 if st.button("Save Fixtures"):
                     edited_df.to_csv(fixtures_path, index=False)
+                    save_to_github(fixtures_path, edited_df.to_csv(index=False), f"Updated {selected_sport} Fixtures")
                     st.success("Fixtures saved!")
             else:
                 st.warning(f"No fixtures file found at {fixtures_path}")
@@ -498,6 +510,7 @@ def admin_interface():
                 edited_df = st.data_editor(df, num_rows="dynamic")
                 if st.button("Save Results"):
                     edited_df.to_csv(results_path, index=False)
+                    save_to_github(results_path, edited_df.to_csv(index=False), f"Updated {selected_sport} Results")
                     st.success("Results saved!")
             else:
                 st.warning(f"No results file found at {results_path}")
@@ -510,6 +523,7 @@ def admin_interface():
                 edited_df = st.data_editor(df, num_rows="dynamic")
                 if st.button("Save Points"):
                     edited_df.to_csv(points_path, index=False)
+                    save_to_github(points_path, edited_df.to_csv(index=False), f"Updated {selected_sport} Points")
                     st.success("Points saved!")
             else:
                 st.warning(f"No points file found at {points_path}")
@@ -527,6 +541,7 @@ def admin_interface():
             if st.button("Save Rules"):
                 with open(rules_path, "w") as f:
                     f.write(new_rules)
+                save_to_github(rules_path, new_rules, f"Updated {selected_sport} Rules")
                 st.success("Rules saved!")
 
 # Main App Logic
