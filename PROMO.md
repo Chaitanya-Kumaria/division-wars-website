@@ -10,7 +10,7 @@ It's not just a tournament—it's a **WAR**! Five fearless divisions clash in an
 
 **The Contenders:**
 - 🦁 **Anarchy** - Chaos meets Strategy!
-- 🐶 **BigDawg** - Top Dog Energy!
+- 🐶 **BigDawgs** - Top Dog Energy!
 - 💼 **C-Suite** - Executive Excellence!
 - ⚡ **SPD** - Speed, Power, Dominance!
 - 👁️ **Peak-e-Blinders** - Visionaries on a Mission!
