@@ -262,7 +262,10 @@ SPORTS_DIR = os.path.join(BACKEND_DIR, 'Sports')
 SPORTS_DATA_DIR = os.path.join(BACKEND_DIR, 'Sports', 'SportsData')
 CULTURAL_DATA_DIR = os.path.join(BACKEND_DIR, 'Cultural')
 RULES_DIR = os.path.join(BACKEND_DIR, 'Sports', 'Rules')
+RULES_DIR = os.path.join(BACKEND_DIR, 'Sports', 'Rules')
 PASSWORDS_FILE = os.path.join(SPORTS_DIR, 'passwords.txt')
+FINAL_POINTS_FILE = os.path.join(BACKEND_DIR, 'final_points_table.csv')
+RULEBOOK_PDF = os.path.join(SPORTS_DIR, 'Div Wars25_Rule Book.pdf')
 
 # Ensure directories exist
 os.makedirs(RULES_DIR, exist_ok=True)
@@ -281,7 +284,6 @@ def load_passwords():
     return passwords
 
 # Load Overall Data
-@st.cache_data
 def load_overall_data():
     sports_path = os.path.join(SPORTS_DATA_DIR, 'overall_table.csv')
     cultural_path = os.path.join(CULTURAL_DATA_DIR, 'overall_points_table.csv')
@@ -298,10 +300,55 @@ def load_overall_data():
         
     return sports_df, cultural_df
 
+def recalculate_final_points():
+    """Recalculates the final points table from Sports and Cultural data."""
+    sports_df, cultural_df = load_overall_data()
+    
+    if not sports_df.empty or not cultural_df.empty:
+        # Prepare Sports Data
+        if not sports_df.empty:
+            s_df = sports_df[['Team', 'Points']].rename(columns={'Points': 'Sports Points'})
+        else:
+            s_df = pd.DataFrame(columns=['Team', 'Sports Points'])
+            
+        # Prepare Cultural Data
+        if not cultural_df.empty:
+            c_df = cultural_df[['Team', 'Points']].rename(columns={'Points': 'Cultural Points'})
+        else:
+            c_df = pd.DataFrame(columns=['Team', 'Cultural Points'])
+        
+        # Merge
+        final_df = pd.merge(s_df, c_df, on='Team', how='outer').fillna(0)
+        final_df['Total Points'] = final_df['Sports Points'] + final_df['Cultural Points']
+        final_df = final_df.sort_values(by='Total Points', ascending=False).reset_index(drop=True)
+        
+        # Add Position column
+        final_df.insert(0, 'Position', range(1, len(final_df) + 1))
+        return final_df
+    else:
+        return pd.DataFrame(columns=['Position', 'Team', 'Sports Points', 'Cultural Points', 'Total Points'])
+
 # Authentication
 def check_password():
     """Returns `True` if the user had the correct password."""
     passwords = load_passwords()
+    
+    # Sidebar section for Rulebook (always visible)
+    st.sidebar.divider()
+    st.sidebar.subheader("📖 Rulebook")
+    if os.path.exists(RULEBOOK_PDF):
+        with open(RULEBOOK_PDF, "rb") as pdf_file:
+            pdf_bytes = pdf_file.read()
+            st.sidebar.download_button(
+                label="📥 Download Rulebook PDF",
+                data=pdf_bytes,
+                file_name="Division_Wars_2025_Rulebook.pdf",
+                mime="application/pdf"
+            )
+    else:
+        st.sidebar.info("Rulebook not available")
+    
+    st.sidebar.divider()
 
     def password_entered():
         """Checks whether a password entered by the user is correct."""
@@ -311,9 +358,13 @@ def check_password():
             sport = passwords[entered_pwd]
             # Store authorized sports
             if sport == "admin":
-                st.session_state["authorized_sports"] = ["Throwball", "Badminton"]  # All sports
+                # Dynamically get all sports from directories
+                all_sports = [d for d in os.listdir(SPORTS_DATA_DIR) if os.path.isdir(os.path.join(SPORTS_DATA_DIR, d))]
+                st.session_state["authorized_sports"] = sorted(all_sports)
+                st.session_state["is_admin"] = True
             else:
                 st.session_state["authorized_sports"] = [sport.title()]
+                st.session_state["is_admin"] = False
             del st.session_state["password"]  # don't store password
         else:
             st.session_state["password_correct"] = False
@@ -339,6 +390,8 @@ def check_password():
              st.session_state["password_correct"] = False
              if "authorized_sports" in st.session_state:
                  del st.session_state["authorized_sports"]
+             if "is_admin" in st.session_state:
+                 del st.session_state["is_admin"]
              st.rerun()
         return True
 
@@ -354,6 +407,69 @@ def admin_interface():
         return
     
     available_sports = authorized_sports
+    
+    # Admin-only section for Overall Points
+    if st.session_state.get("is_admin", False):
+        st.divider()
+        st.subheader("🏆 Overall Standings Management (Admin Only)")
+        
+        overall_tabs = st.tabs(["Final Standings", "Sports Overall", "Cultural Overall"])
+        
+        with overall_tabs[0]:
+            st.markdown("### 🏆 Edit Final Points Table")
+            st.info("This table is displayed on the main dashboard. You can recalculate it from the source tables or edit it manually.")
+            
+            col_recalc, col_dummy = st.columns([1, 3])
+            with col_recalc:
+                if st.button("🔄 Recalculate from Sources"):
+                    final_df = recalculate_final_points()
+                    final_df.to_csv(FINAL_POINTS_FILE, index=False)
+                    st.success("Recalculated and saved!")
+                    st.rerun()
+
+            if os.path.exists(FINAL_POINTS_FILE):
+                df = pd.read_csv(FINAL_POINTS_FILE)
+                edited_df = st.data_editor(df, num_rows="dynamic", key="final_points_editor")
+                if st.button("Save Final Table"):
+                    edited_df.to_csv(FINAL_POINTS_FILE, index=False)
+                    st.success("Final Points Table saved!")
+            else:
+                st.warning("Final points table not found. Please click Recalculate.")
+
+        with overall_tabs[1]:
+            st.markdown("### Edit Sports Overall Table")
+            sports_overall_path = os.path.join(SPORTS_DATA_DIR, 'overall_table.csv')
+            if os.path.exists(sports_overall_path):
+                df = pd.read_csv(sports_overall_path)
+                edited_df = st.data_editor(df, num_rows="dynamic", key="sports_overall_editor")
+                if st.button("Save Sports Overall"):
+                    edited_df.to_csv(sports_overall_path, index=False)
+                    # Auto-recalculate final points
+                    final_df = recalculate_final_points()
+                    final_df.to_csv(FINAL_POINTS_FILE, index=False)
+                    st.success("Sports Overall Table saved and Final Points updated!")
+                    st.rerun()
+            else:
+                st.warning("Sports overall table not found.")
+                
+        with overall_tabs[1]:
+            st.markdown("### Edit Cultural Overall Table")
+            cultural_overall_path = os.path.join(CULTURAL_DATA_DIR, 'overall_points_table.csv')
+            if os.path.exists(cultural_overall_path):
+                df = pd.read_csv(cultural_overall_path)
+                edited_df = st.data_editor(df, num_rows="dynamic", key="cultural_overall_editor")
+                if st.button("Save Cultural Overall"):
+                    edited_df.to_csv(cultural_overall_path, index=False)
+                    # Auto-recalculate final points
+                    final_df = recalculate_final_points()
+                    final_df.to_csv(FINAL_POINTS_FILE, index=False)
+                    st.success("Cultural Overall Table saved and Final Points updated!")
+                    st.rerun()
+            else:
+                st.warning("Cultural overall table not found.")
+        
+        st.divider()
+
     selected_sport = st.selectbox("Select Sport to Edit", available_sports)
     
     if selected_sport:
@@ -364,7 +480,7 @@ def admin_interface():
         
         with tab_fixtures:
             st.subheader(f"Edit {selected_sport} Fixtures")
-            fixtures_path = os.path.join(SPORTS_DATA_DIR, f'{sport_key}_fixtures.csv')
+            fixtures_path = os.path.join(SPORTS_DATA_DIR, selected_sport, 'fixtures.csv')
             if os.path.exists(fixtures_path):
                 df = pd.read_csv(fixtures_path)
                 edited_df = st.data_editor(df, num_rows="dynamic")
@@ -376,7 +492,7 @@ def admin_interface():
 
         with tab_results:
             st.subheader(f"Edit {selected_sport} Results")
-            results_path = os.path.join(SPORTS_DATA_DIR, f'{sport_key}_results.csv')
+            results_path = os.path.join(SPORTS_DATA_DIR, selected_sport, 'results.csv')
             if os.path.exists(results_path):
                 df = pd.read_csv(results_path)
                 edited_df = st.data_editor(df, num_rows="dynamic")
@@ -388,7 +504,7 @@ def admin_interface():
                 
         with tab_points:
             st.subheader(f"Edit {selected_sport} Points")
-            points_path = os.path.join(SPORTS_DATA_DIR, f'{sport_key}_points.csv')
+            points_path = os.path.join(SPORTS_DATA_DIR, selected_sport, 'points.csv')
             if os.path.exists(points_path):
                 df = pd.read_csv(points_path)
                 edited_df = st.data_editor(df, num_rows="dynamic")
@@ -420,18 +536,16 @@ else:
     # User Interface
     sports_df, cultural_df = load_overall_data()
 
-    # Calculate Final Points Table
-    if not sports_df.empty and not cultural_df.empty:
-        s_df = sports_df[['Team', 'Points']].rename(columns={'Points': 'Sports Points'})
-        c_df = cultural_df[['Team', 'Points']].rename(columns={'Points': 'Cultural Points'})
-        
-        final_df = pd.merge(s_df, c_df, on='Team', how='outer').fillna(0)
-        final_df['Total Points'] = final_df['Sports Points'] + final_df['Cultural Points']
-        final_df = final_df.sort_values(by='Total Points', ascending=False).reset_index(drop=True)
-        # Add Position column
-        final_df.insert(0, 'Position', range(1, len(final_df) + 1))
+    # Load Final Points Table
+    if os.path.exists(FINAL_POINTS_FILE):
+        final_df = pd.read_csv(FINAL_POINTS_FILE)
     else:
-        final_df = pd.DataFrame(columns=['Position', 'Team', 'Total Points'])
+        # Fallback if file doesn't exist yet
+        final_df = recalculate_final_points()
+        # Optionally save it automatically? Better to let admin do it to be safe, 
+        # but for display purposes we show the calculated one.
+
+
 
     # Title
     st.title("🏆 Division Wars 2025")
@@ -455,7 +569,7 @@ else:
         st.divider()
         
         # Sport Selection
-        available_sports = ["Throwball", "Badminton", "Carrom"] 
+        available_sports = sorted([d for d in os.listdir(SPORTS_DATA_DIR) if os.path.isdir(os.path.join(SPORTS_DATA_DIR, d))])
         selected_sport = st.selectbox("Select a Sport", available_sports)
         
         if selected_sport:
@@ -463,13 +577,13 @@ else:
             
             # Construct paths for specific sport data
             sport_key = selected_sport.lower()
-            fixtures_path = os.path.join(SPORTS_DATA_DIR, f'{sport_key}_fixtures.csv')
-            points_path = os.path.join(SPORTS_DATA_DIR, f'{sport_key}_points.csv')
-            results_path = os.path.join(SPORTS_DATA_DIR, f'{sport_key}_results.csv')
+            fixtures_path = os.path.join(SPORTS_DATA_DIR, selected_sport, 'fixtures.csv')
+            points_path = os.path.join(SPORTS_DATA_DIR, selected_sport, 'points.csv')
+            results_path = os.path.join(SPORTS_DATA_DIR, selected_sport, 'results.csv')
             rules_path = os.path.join(RULES_DIR, f'{sport_key}_rules.txt')
             
             # Create columns
-            col1, col2, col3 = st.columns(3)
+            col1, col2, col3 = st.columns(3, gap="large")
             
             with col1:
                 st.markdown("### 📅 Upcoming Fixtures")
