@@ -1,3 +1,8 @@
-Match No,Team 1,Team 2,Winner,Set 1,Set 2,Set 3,Final Score
-1,,BigDawgs,Anarchy,11-9,11-8,-,2-0
-2,C-Suite,SPD,SPD,9-11,11-5,8-11,1-2
+Match No,Phase,Team 1,Team 2,Winner,Set 1,Set 2,Set 3,Final Score
+1,Phase 1,SPD,Peak-e-Blinders,Peak-e-Blinders,4-11,6-11,-,0-2
+2,Phase 1,C-Suite,Anarchy,Anarchy,9-11,9-11,-,0-2
+3,Phase 1,BigDawgs,Peak-e-Blinders,Peak-e-Blinders,4-11,0-11,-,0-2
+4,Phase 1,Anarchy,SPD,SPD,8-11,9-11,-,2-0
+5,Phase 1,BigDawgs,C-Suite,C-Suite,2-11,7-11,-,0-2
+6,Semi-Final,SPD,C-Suite,SPD,11-9,11-7,11-8,2-1
+7,Final,SPD,Peak-e-Blinders,SPD,11-8,11-3,-,2-0
