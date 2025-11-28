@@ -1,6 +1,3 @@
-Team,Played,Won,Lost,Draw,Points
-Anarchy,0,0,0,0,0
-BigDawgs,0,0,0,0,0
-C-Suite,0,0,0,0,0
-SPD,0,0,0,0,0
-Peak-e-Blinders,0,0,0,0,0
+Team,Group,Played,Won,Lost,Drawn,Points,Score Diff
+Team A1,A,0,0,0,0,0,0
+Team A2,B,0,0,0,0,0,0
