@@ -597,11 +597,26 @@ else:
                 st.markdown("### 📊 Points Table")
                 if os.path.exists(points_path):
                     points_df = pd.read_csv(points_path)
-                    # Add Position column
-                    if 'Points' in points_df.columns:
-                        points_df = points_df.sort_values(by='Points', ascending=False).reset_index(drop=True)
-                        points_df.insert(0, 'Position', range(1, len(points_df) + 1))
-                    st.dataframe(points_df, hide_index=True)
+                    
+                    # Check if Group column exists
+                    if 'Group' in points_df.columns and not points_df['Group'].isnull().all():
+                        # Get unique groups
+                        groups = sorted(points_df['Group'].dropna().unique())
+                        group_tabs = st.tabs([f"Group {g}" for g in groups])
+                        
+                        for i, group in enumerate(groups):
+                            with group_tabs[i]:
+                                group_df = points_df[points_df['Group'] == group].copy()
+                                if 'Points' in group_df.columns:
+                                    group_df = group_df.sort_values(by=['Points', 'Score Diff'], ascending=[False, False]).reset_index(drop=True)
+                                    group_df.insert(0, 'Position', range(1, len(group_df) + 1))
+                                st.dataframe(group_df, hide_index=True)
+                    else:
+                        # Add Position column
+                        if 'Points' in points_df.columns:
+                            points_df = points_df.sort_values(by='Points', ascending=False).reset_index(drop=True)
+                            points_df.insert(0, 'Position', range(1, len(points_df) + 1))
+                        st.dataframe(points_df, hide_index=True)
                 else:
                     st.info("No points data available.")
                     
