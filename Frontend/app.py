@@ -513,6 +513,14 @@ else:
     # Load Final Points Table
     if os.path.exists(FINAL_POINTS_FILE):
         final_df = pd.read_csv(FINAL_POINTS_FILE)
+        # Ensure it is sorted by Total Points
+        if 'Total Points' in final_df.columns:
+            final_df = final_df.sort_values(by='Total Points', ascending=False).reset_index(drop=True)
+            # Update Position column
+            if 'Position' in final_df.columns:
+                final_df['Position'] = range(1, len(final_df) + 1)
+            else:
+                 final_df.insert(0, 'Position', range(1, len(final_df) + 1))
     else:
         # Fallback if file doesn't exist yet
         final_df = recalculate_final_points()
