@@ -275,7 +275,7 @@ def load_passwords():
     """Load sport passwords from passwords.txt"""
     passwords = {}
     if os.path.exists(PASSWORDS_FILE):
-        with open(PASSWORDS_FILE, 'r') as f:
+        with open(PASSWORDS_FILE, 'r', encoding='utf-8') as f:
             for line in f:
                 line = line.strip()
                 if ':' in line:
@@ -473,7 +473,7 @@ def admin_interface():
     selected_sport = st.selectbox("Select Sport to Edit", available_sports)
     
     if selected_sport:
-        sport_key = selected_sport.lower()
+        sport_key = selected_sport.lower().replace(' ', '_')
         
         # Tabs for editing
         tab_fixtures, tab_results, tab_points, tab_rules = st.tabs(["Fixtures", "Results", "Points", "Rules"])
@@ -491,41 +491,15 @@ def admin_interface():
                 st.warning(f"No fixtures file found at {fixtures_path}")
 
         with tab_results:
-            st.subheader(f"Edit {selected_sport} Results")
-            results_path = os.path.join(SPORTS_DATA_DIR, selected_sport, 'results.csv')
-            if os.path.exists(results_path):
-                df = pd.read_csv(results_path)
-                edited_df = st.data_editor(df, num_rows="dynamic")
-                if st.button("Save Results"):
-                    edited_df.to_csv(results_path, index=False)
-                    st.success("Results saved!")
-            else:
-                st.warning(f"No results file found at {results_path}")
-                
-        with tab_points:
-            st.subheader(f"Edit {selected_sport} Points")
-            points_path = os.path.join(SPORTS_DATA_DIR, selected_sport, 'points.csv')
-            if os.path.exists(points_path):
-                df = pd.read_csv(points_path)
-                edited_df = st.data_editor(df, num_rows="dynamic")
-                if st.button("Save Points"):
-                    edited_df.to_csv(points_path, index=False)
-                    st.success("Points saved!")
-            else:
-                st.warning(f"No points file found at {points_path}")
-
-        with tab_rules:
-            st.subheader(f"Edit {selected_sport} Rules")
-            rules_path = os.path.join(RULES_DIR, f'{sport_key}_rules.txt')
             
             current_rules = ""
             if os.path.exists(rules_path):
-                with open(rules_path, "r") as f:
+                with open(rules_path, "r", encoding='utf-8') as f:
                     current_rules = f.read()
             
             new_rules = st.text_area("Rules Content", value=current_rules, height=300)
             if st.button("Save Rules"):
-                with open(rules_path, "w") as f:
+                with open(rules_path, "w", encoding='utf-8') as f:
                     f.write(new_rules)
                 st.success("Rules saved!")
 
@@ -576,7 +550,7 @@ else:
             st.subheader(f"{selected_sport} Details")
             
             # Construct paths for specific sport data
-            sport_key = selected_sport.lower()
+            sport_key = selected_sport.lower().replace(' ', '_')
             fixtures_path = os.path.join(SPORTS_DATA_DIR, selected_sport, 'fixtures.csv')
             points_path = os.path.join(SPORTS_DATA_DIR, selected_sport, 'points.csv')
             results_path = os.path.join(SPORTS_DATA_DIR, selected_sport, 'results.csv')
@@ -611,6 +585,19 @@ else:
                                     group_df = group_df.sort_values(by=['Points', 'Score Diff'], ascending=[False, False]).reset_index(drop=True)
                                     group_df.insert(0, 'Position', range(1, len(group_df) + 1))
                                 st.dataframe(group_df, hide_index=True)
+                    # Check if Phase column exists (for Table Tennis)
+                    elif 'Phase' in points_df.columns and not points_df['Phase'].isnull().all():
+                        # Get unique phases
+                        phases = sorted(points_df['Phase'].dropna().unique())
+                        phase_tabs = st.tabs([f"{p}" for p in phases])
+                        
+                        for i, phase in enumerate(phases):
+                            with phase_tabs[i]:
+                                phase_df = points_df[points_df['Phase'] == phase].copy()
+                                if 'Points' in phase_df.columns:
+                                    phase_df = phase_df.sort_values(by=['Points'], ascending=[False]).reset_index(drop=True)
+                                    phase_df.insert(0, 'Position', range(1, len(phase_df) + 1))
+                                st.dataframe(phase_df, hide_index=True)
                     else:
                         # Add Position column
                         if 'Points' in points_df.columns:
@@ -631,7 +618,7 @@ else:
             st.divider()
             st.markdown("### 📜 Rules")
             if os.path.exists(rules_path):
-                with open(rules_path, "r") as f:
+                with open(rules_path, "r", encoding='utf-8') as f:
                     rules_content = f.read()
                 # Display rules in styled card
                 st.markdown(f'<div class="rules-card">{rules_content}</div>', unsafe_allow_html=True)

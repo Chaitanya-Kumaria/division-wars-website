@@ -1,0 +1,59 @@
+Core Rules and Match Structure
+
+Detail Rule
+Event Type Team Event (Best-of-5 Matches)
+Team Size Minimum 6 players required (3 Men, 3 Women). Substitutions allowed between ties.
+Match Types Men’s Singles (MS), Women’s Singles (WS), Men’s Doubles (MD), Women’s Doubles (WD), and Mixed Doubles (XD)
+Match Order (Depends on toss) The team winning the toss gets to decide type of match they want first. The other team decides the next type of match and so on.
+Note: Every team must declare their players and the type of match they would be playing in before every tie. Once declared it cannot be changed for that tie.
+Tie Winner The first team to win 3 types of matches wins the tie.
+Individual Scoring All individual matches are Best-of-1 game in round robin matches. Best of 3 in Semis & Final
+Player Restriction A single player can participate in a maximum of two individual match types per tie (e.g., MS and MD are allowed; MS, MD, and XD are not allowed).
+
+B. Phase 1: Initial Round Robin (5 Teams)
+Goal: Eliminate the two lowest-performing teams and determine the top three seeds.
+1. Structure and Schedule
+● Participants: All 5 teams.
+● Ties: Each team plays every other team once. (Total Ties: 10)
+2. Scoring and Ranking
+● Win/Loss: 3 points for a tie win, 0 points for a tie loss.
+● Ranking Criteria (in order):
+1. Total points earned.
+2. Head-to-head result between tied teams.
+3. Advancement
+● Teams ranked #1, #2, and #3 advance to Phase 2.
+● Teams ranked #4 and #5 are eliminated.
+
+C. Phase 2: Second Round Robin (The Top 3)
+Goal: Secure a spot in the Grand Final and determine the two teams that will play the SFs.
+1. Structure and Schedule
+● Participants: Teams ranked #1, #2, and #3 from Phase 1.
+● Ties: Each of the 3 remaining teams plays every other team once again. (Total Ties: 3)
+2. Scoring and Ranking
+● NEW Ranking: New rankings (S1, S2, S3) are determined solely by performance in these 3 Phase 2 ties.
+● Ranking Criteria: Same as Phase 1 (Team Points, then Head-to-Head).
+3. Advancement
+● Team Ranked S1 (Winner of the Second Round Robin) advances directly to the Grand Final.
+● Teams Ranked S2 and S3 advance to the Semi-Final.
+
+D. Phase 3: Knockout Stage (Semi-Final & Final)
+Goal: Determine the 2nd Finalist and the Overall Champion.
+1. Semi-Final (Knockout Tie)
+Tie Participants Result
+Semi-Final Team Ranked S2 vs. Team Ranked S3
+The winner advances to the Grand Final. The loser takes 3rd place overall.
+2. Grand Final (Championship Tie)
+Tie Participants Result
+Grand Final Team Ranked S1 (Round Robin Winner) vs. Semi-Final Winner
+Determines the 1st and 2nd place champions.
+
+Tournament Summary
+Phase Structure Total Ties Total Matches (Max) Total Matches (Min)
+Phase 1 5-Team Round Robin (Elimination) 10 50 30
+Phase 2 3-Team Round Robin (Final Seeding) 3 15 9
+Phase 3 Knockout (SF + Final) 2 10 6
+TOTAL 15 75 45
+
+Rules of Table Tennis:
+Please refer to sections 2.1 through 2.14 (both inclusive) of the ITTF rulebook attached here.
+These are the basic rules of the game of Table Tennis. The final decision regarding any point/match shall rest with the match referee and the chief referee
