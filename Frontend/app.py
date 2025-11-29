@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import os
+from datetime import datetime
 
 # Set page config
 st.set_page_config(page_title="Division Wars", layout="wide", page_icon="🏆", initial_sidebar_state="expanded")
@@ -328,6 +329,45 @@ def recalculate_final_points():
     else:
         return pd.DataFrame(columns=['Position', 'Team', 'Sports Points', 'Cultural Points', 'Total Points'])
 
+def get_todays_schedule():
+    """Aggregates fixtures for today from all sports."""
+    today_str_1 = datetime.now().strftime('%d-%b-%Y') # e.g. 29-Nov-2025
+    today_str_2 = datetime.now().strftime('%Y-%m-%d') # e.g. 2025-11-29
+    
+    all_fixtures = []
+    
+    if os.path.exists(SPORTS_DATA_DIR):
+        sports = [d for d in os.listdir(SPORTS_DATA_DIR) if os.path.isdir(os.path.join(SPORTS_DATA_DIR, d))]
+        
+        for sport in sports:
+            fixtures_path = os.path.join(SPORTS_DATA_DIR, sport, 'fixtures.csv')
+            if os.path.exists(fixtures_path):
+                try:
+                    df = pd.read_csv(fixtures_path)
+                    # Normalize columns to lowercase for easier checking
+                    df.columns = [c.strip() for c in df.columns]
+                    
+                    if 'Date' in df.columns:
+                        # Filter for today
+                        # We check if the Date column contains today's date string
+                        # This is a simple string match for now
+                        today_df = df[df['Date'].astype(str).str.contains(today_str_1, case=False) | 
+                                      df['Date'].astype(str).str.contains(today_str_2, case=False)].copy()
+                        
+                        if not today_df.empty:
+                            today_df['Sport'] = sport
+                            all_fixtures.append(today_df)
+                except Exception as e:
+                    print(f"Error reading fixtures for {sport}: {e}")
+                    
+    if all_fixtures:
+        combined_df = pd.concat(all_fixtures, ignore_index=True)
+        # Reorder columns to put Sport first
+        cols = ['Sport'] + [c for c in combined_df.columns if c != 'Sport']
+        combined_df = combined_df[cols]
+        return combined_df
+    return pd.DataFrame()
+
 # Authentication
 def check_password():
     """Returns `True` if the user had the correct password."""
@@ -491,6 +531,32 @@ def admin_interface():
                 st.warning(f"No fixtures file found at {fixtures_path}")
 
         with tab_results:
+            st.subheader(f"Edit {selected_sport} Results")
+            results_path = os.path.join(SPORTS_DATA_DIR, selected_sport, 'results.csv')
+            if os.path.exists(results_path):
+                df = pd.read_csv(results_path)
+                edited_df = st.data_editor(df, num_rows="dynamic")
+                if st.button("Save Results"):
+                    edited_df.to_csv(results_path, index=False)
+                    st.success("Results saved!")
+            else:
+                st.warning(f"No results file found at {results_path}")
+
+        with tab_points:
+            st.subheader(f"Edit {selected_sport} Points Table")
+            points_path = os.path.join(SPORTS_DATA_DIR, selected_sport, 'points.csv')
+            if os.path.exists(points_path):
+                df = pd.read_csv(points_path)
+                edited_df = st.data_editor(df, num_rows="dynamic")
+                if st.button("Save Points Table"):
+                    edited_df.to_csv(points_path, index=False)
+                    st.success("Points Table saved!")
+            else:
+                st.warning(f"No points file found at {points_path}")
+        
+        with tab_rules:
+            st.subheader(f"Edit {selected_sport} Rules")
+            rules_path = os.path.join(RULES_DIR, f'{sport_key}_rules.txt')
             
             current_rules = ""
             if os.path.exists(rules_path):
@@ -537,9 +603,17 @@ else:
     st.dataframe(final_df, use_container_width=True, hide_index=True)
 
     # Tabs
-    tab1, tab2 = st.tabs(["🏅 Sports", "🎭 Cultural"])
+    tab1, tab2, tab3 = st.tabs(["📅 Schedule", "🏅 Sports", "🎭 Cultural"])
 
     with tab1:
+        st.header(f"Today's Schedule ({datetime.now().strftime('%d-%b-%Y')})")
+        schedule_df = get_todays_schedule()
+        if not schedule_df.empty:
+            st.dataframe(schedule_df, use_container_width=True, hide_index=True)
+        else:
+            st.info("No matches scheduled for today.")
+
+    with tab2:
         st.header("Sports Overall Standings")
         # Add Position column to sports standings
         sports_display_df = sports_df.copy()
@@ -633,7 +707,7 @@ else:
             else:
                 st.info("No rules available for this sport.")
 
-    with tab2:
+    with tab3:
         st.header("Cultural Overall Standings")
         # Add Position column to cultural standings
         cultural_display_df = cultural_df.copy()
@@ -641,4 +715,3 @@ else:
             cultural_display_df = cultural_display_df.sort_values(by='Points', ascending=False).reset_index(drop=True)
             cultural_display_df.insert(0, 'Position', range(1, len(cultural_display_df) + 1))
         st.dataframe(cultural_display_df, use_container_width=True, hide_index=True)
-
