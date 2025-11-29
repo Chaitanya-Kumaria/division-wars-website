@@ -1,3 +1,8 @@
 Match No,Team 1,Team 2,Winner,Score
 3,SPD,C-suite,SPD,2-1
 5,Big Dawgs,SPD,SPD,1-2
+1,Anarchy,C-suite,Anarchy,2-1
+2,PeakE Blinders,Big Dawgs,PeakE Blinders,2-1
+4,Anarchy,PeakE Blinders,PeakE Blinders,1-2
+SF,PeakE Blinders,Anarchy,Anarchy,0-2
+Final,SPD,Anarchy,SPD,2-1
