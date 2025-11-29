@@ -1,0 +1,38 @@
+General Structure
+• Categories: Men’s Doubles, Women’s Doubles, Mixed Doubles.
+• Participation: 5 Divisions (Teams).
+• Format: Round Robin League followed by Finals (top two teams making it to the finals, and the next two will play for a third place finish).
+• Goal Difference: (Total Goals Scored) – (Total Goals Conceded) to be considered in case of a tie.
+• Total Matches: Each team plays every other team once in the league stage (4 matches per team per category).
+
+Team Composition
+• Men's Doubles: 2 Male players (+ 1 substitute allowed).
+• Women's Doubles: 2 Female players (+ 1 substitute allowed).
+• Mixed Doubles: 2 players (+ 1 substitute allowed).
+• Substitutions: Allowed only between sets or during a timeout, not during active play.
+• Player Cap: One male and one female can participate in max two events.
+
+Point System
+• Win: 2 Points.
+• Loss: 0 Points.
+• Late arrival (more than 5 minutes): 2 Points (Recorded as a max-score win).
+
+Format Overview
+Option 1: The "Race to 10" (Single Game Format)
+• Match Structure: Consists of one single game.
+• Winning Condition: The first team to score 10 goals wins the match.
+• Time Limit: 20 minutes per match.
+o If the time expires before a team reaches 10 goals, the team leading at the whistle wins.
+o If scores are tied, a "Golden Goal" rule applies (next goal wins).
+• Side Selection: A coin toss determines the starting side/possession. No side switching during a set.
+
+Rules
+1. Scoring: A goal counts anytime the ball enters the net, including own goals and deflections off any player.
+2. No Spinning: Rotating the rod more than 360° is not allowed and results in immediate loss of possession.
+3. No Spinning (Ball delivery): The ball should not be spun while putting it in after a goal or after a break.
+4. Dead Ball: If the ball stops out of reach in a corner, re-serve.
+5. Jarring: Banging, lifting, or sliding the table to affect the ball is not allowed.
+6. Time Limit: You cannot hold the ball on a single rod for more than 15 seconds.
+7. Ball Off Table: If the ball leaves the table, play restarts with a serve by the team that did not shoot it out.
+8. Reset: Teams switch sides after every set; the loser of the previous game gets the first serve of the next game.
+9. Invalid Goal: If one shoots and it goes in without touching any of the opponent's defenders, then it would not be considered as a goal.

@@ -1,3 +1,11 @@
 Match No,Phase,Team 1,Team 2,Date,Time
-1,Phase 1,Team A,Team B,2025-11-28,10:00 AM
-2,Phase 2, Team A,Team B, 2025-11-28, 10:00 AM
+1,Phase 1,SPD,Anarchy,29-Nov-2025,11:00-11:30 am
+2,Phase 1,C-suite,PeakE Blinders,29-Nov-2025,11:00-11:30 am
+3,Phase 1,C-suite,Big Dawgs,29-Nov-2025,11:35-12:05 pm
+4,Phase 1,Anarchy,PeakE Blinders,29-Nov-2025,11:35-12:05 pm
+5,Phase 1,C-suite,SPD,29-Nov-2025,12:10-12:40 pm
+6,Phase 1,PeakE Blinders,Big Dawgs,29-Nov-2025,12:10-12:40 pm
+7,Phase 1,C-suite,Anarchy,29-Nov-2025,12:45-1:15 pm
+8,Phase 1,Big Dawgs,SPD,29-Nov-2025,12:45-1:15 pm
+9,Phase 1,Big Dawgs,Anarchy,29-Nov-2025,1:20-1:50 pm
+10,Phase 1,SPD,PeakE Blinders,29-Nov-2025,1:20-1:50 pm
