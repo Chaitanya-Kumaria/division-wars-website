@@ -1,0 +1,41 @@
+General structure
+• Round robin tournament of 5 teams, 3 players per team = 15 players
+• Each team will have 3 players + 1 substitute
+• Total no. of rounds: 5
+• Time format: 10 mins + 2 sec increment
+• Each round will take approx. 25 mins. With breaks and turnaround of 10 min after each round, the total time for the tournament = 35 mins * 5 rounds = 175 minutes (approx. 3 hours)
+• Scoring: 2 points for a win, 1 point for a draw and 0 for a loss
+• Blind board order should be sent 10 mins before the game.
+• Captains will be informed all the rules of the board order and substitution well before the tournament.
+• All FIDE rules are applicable
+
+Tournament Format & Rules
+• Type: Round-Robin
+• Platform: The games will be played over the board
+• Players: 5 teams (each plays every other once, 4 (3+1 sub) players per team
+• Rounds: 5 rounds
+• Round Length: 10 minutes plus 2 seconds increment per move
+• Tie-breaks: 1) Total number of match points, 2) Total number of game points 3) Armageddon
+
+Procedures:
+➢ Players should report 10 minutes before each round.
+➢ Draw Claims (Threefold Repetition / 50-Move Rule): Players must stop the clock and call the arbiter to claim a draw. Incorrect claims may incur a time penalty.
+➢ End of Game Procedure: After checkmate, resignation, or flag fall, both players must sign the result slip.
+➢ Late Arrival Protocol: Players arriving after the 10-minute default time lose by forfeit.
+➢ Pairing Display: Round-robin pairings are pre-published; players must check the board number before each round.
+➢ Touch-Move Rule: If a player deliberately touches a piece, they must move it if legal. Touching the opponent’s pieces without intent to capture is forbidden.
+➢ Check & Illegal Position Corrections: If an illegal position is noticed, the arbiter will reinstate the last correct position and add time penalties where applicable.
+➢ Electronic devices: Phones or smart devices must be on switched off, in a separate bag or outside the playing area. It shouldn’t be on the table or in the player’s pockets. Any sound from the player’s device will lead to loss of game.
+➢ Illegal Moves: First illegal move: warning; second illegal move: loss of game.
+➢ Scoring: 2 points for a win, 1 for a draw, 0 for loss
+
+Arbiter & Officials
+• Arbiter: Hemanth Kumar
+• Appeals Committee: Shriya Revankar, Kushagr Sharma, Siddharth Chaudhary, Harsh Tiwari, Shubham Deokar
+
+Code of Conduct
+• Appeals must be lodged with the chief arbiter within 10 minutes of the game's finish together with a ₹500 protest fee (refundable if appeal succeeds).
+
+Tiebreaks
+1. Total number of matchpoints
+2. Total number of game points: total board points scored across all rounds
