@@ -1,21 +1,3 @@
 Match No,Group,Team 1,Team 2,Date,Time
-1,A,Anarchy,Big Dawgs,29-Nov-2025,10:00-10:30 am
-2,A,C-suite,SPD,29-Nov-2025,10:00-10:30 am
-3,B,Anarchy,Big Dawgs,29-Nov-2025,10:00-10:30 am
-4,B,C-suite,SPD,29-Nov-2025,10:00-10:30 am
-5,A,Anarchy,C-suite,29-Nov-2025,10:35-11:05 am
-6,A,Big Dawgs,PeakE Blinders,29-Nov-2025,10:35-11:05 am
-7,B,Anarchy,C-suite,29-Nov-2025,10:35-11:05 am
-8,B,Big Dawgs,PeakE Blinders,29-Nov-2025,10:35-11:05 am
-9,A,Anarchy,SPD,29-Nov-2025,11:10-11:40 am
-10,A,C-suite,PeakE Blinders,29-Nov-2025,11:10-11:40 am
-11,B,Anarchy,SPD,29-Nov-2025,11:10-11:40 am
-12,B,C-suite,PeakE Blinders,29-Nov-2025,11:10-11:40 am
-13,A,Anarchy,PeakE Blinders,29-Nov-2025,11:45-12:15 pm
-14,A,Big Dawgs,SPD,29-Nov-2025,11:45-12:15 pm
-15,B,Anarchy,PeakE Blinders,29-Nov-2025,11:45-12:15 pm
-16,B,Big Dawgs,SPD,29-Nov-2025,11:45-12:15 pm
-17,A,Big Dawgs,C-suite,29-Nov-2025,12:20-12:50 pm
-18,A,SPD,PeakE Blinders,29-Nov-2025,12:20-12:50 pm
-19,B,Big Dawgs,C-suite,29-Nov-2025,12:20-12:50 pm
-20,B,SPD,PeakE Blinders,29-Nov-2025,12:20-12:50 pm
+SF1,Semi-Final,SPD,Anarchy,29-Nov-2025,Semi-Finals
+SF2,Semi-Final,SPD,C-suite,29-Nov-2025,Semi-Finals

@@ -1,1 +1,21 @@
 Match No,Group,Team 1,Team 2,Winner,Team 1 Score,Team 2 Score,Queen Winner,Final Score
+1,A,Anarchy,Big Dawgs,Anarchy,12,8,-,12-8
+2,A,C-suite,SPD,SPD,6,9,-,6-9
+3,B,Anarchy,Big Dawgs,Big Dawgs,7,8,-,7-8
+4,B,C-suite,SPD,SPD,8,12,-,8-12
+5,A,Anarchy,C-suite,C-suite,8,12,-,8-12
+6,A,Big Dawgs,PeakE Blinders,Big Dawgs,12,8,-,12-8
+7,B,Anarchy,C-suite,Anarchy,12,4,-,12-4
+8,B,Big Dawgs,PeakE Blinders,PeakE Blinders,8,11,-,8-11
+9,A,Anarchy,SPD,SPD,7,12,-,7-12
+10,A,C-suite,PeakE Blinders,PeakE Blinders,8,12,-,8-12
+11,B,Anarchy,SPD,Anarchy,12,7,-,12-7
+12,B,C-suite,PeakE Blinders,C-suite,12,7,-,12-7
+13,A,Anarchy,PeakE Blinders,PeakE Blinders,7,12,-,7-12
+14,A,Big Dawgs,SPD,Big Dawgs,11,8,-,11-8
+15,B,Anarchy,PeakE Blinders,PeakE Blinders,8,12,-,8-12
+16,B,Big Dawgs,SPD,SPD,6,12,-,6-12
+17,A,Big Dawgs,C-suite,C-suite,4,12,-,4-12
+18,A,SPD,PeakE Blinders,SPD,9,5,-,9-5
+19,B,Big Dawgs,C-suite,Big Dawgs,12,7,-,12-7
+20,B,SPD,PeakE Blinders,SPD,12,7,-,12-7

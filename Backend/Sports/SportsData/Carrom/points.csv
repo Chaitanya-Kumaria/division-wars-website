@@ -1,11 +1,11 @@
 Team,Group,Played,Won,Lost,Drawn,Points,Score Diff
-Anarchy,A,0,0,0,0,0,0
-Big Dawgs,A,0,0,0,0,0,0
-C-suite,A,0,0,0,0,0,0
-SPD,A,0,0,0,0,0,0
-PeakE Blinders,A,0,0,0,0,0,0
-Anarchy,B,0,0,0,0,0,0
-Big Dawgs,B,0,0,0,0,0,0
-C-suite,B,0,0,0,0,0,0
-SPD,B,0,0,0,0,0,0
-PeakE Blinders,B,0,0,0,0,0,0
+Anarchy,A,4,1,3,0,2,-10
+Big Dawgs,A,4,2,2,0,4,-5
+C-suite,A,4,2,2,0,4,5
+SPD,A,4,3,1,0,6,9
+PeakE Blinders,A,4,2,2,0,4,1
+Anarchy,B,4,2,2,0,4,8
+Big Dawgs,B,4,2,2,0,4,-3
+C-suite,B,4,1,3,0,2,-12
+SPD,B,4,3,1,0,6,10
+PeakE Blinders,B,4,2,2,0,4,-3
