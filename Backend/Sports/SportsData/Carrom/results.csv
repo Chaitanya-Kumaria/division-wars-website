@@ -19,3 +19,7 @@ Match No,Group,Team 1,Team 2,Winner,Team 1 Score,Team 2 Score,Queen Winner,Final
 18,A,SPD,PeakE Blinders,SPD,9,5,-,9-5
 19,B,Big Dawgs,C-suite,Big Dawgs,12,7,-,12-7
 20,B,SPD,PeakE Blinders,SPD,12,7,-,12-7
+21,Semi-Final,SPD,SPD,SPD,,,,
+22,Semi-Final,Anarchy,C-suite,C-suite,,,,
+23,Final,SPD,C-suite,C-suite,,,,
+
