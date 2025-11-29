@@ -1,6 +1,6 @@
-Team,Played,Won,Lost,Points,GF,GA,GD
-Anarchy,0,0,0,0,0,0,0
-Big Dawgs,1,0,1,0,22,27,-5
-C-suite,1,0,1,0,20,29,-9
-SPD,2,2,0,4,56,42,14
-PeakE Blinders,0,0,0,0,0,0,0
+Team,Played,Won,Lost,Points,GF,GA,GD,Result
+SPD,2,2,0,4,56,42,14,Winner
+Anarchy,2,1,1,2,0,0,0,Runner-up
+PeakE Blinders,2,2,0,4,0,0,0,Semi-Finalist
+Big Dawgs,2,0,2,0,0,0,0,Group Stage
+C-suite,2,0,2,0,20,29,-9,Group Stage
