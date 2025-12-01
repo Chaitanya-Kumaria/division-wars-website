@@ -329,10 +329,13 @@ def recalculate_final_points():
     else:
         return pd.DataFrame(columns=['Position', 'Team', 'Sports Points', 'Cultural Points', 'Total Points'])
 
-def get_todays_schedule():
-    """Aggregates fixtures for today from all sports."""
-    today_str_1 = datetime.now().strftime('%d-%b-%Y') # e.g. 29-Nov-2025
-    today_str_2 = datetime.now().strftime('%Y-%m-%d') # e.g. 2025-11-29
+def get_todays_schedule(target_date=None):
+    """Aggregates fixtures for a specific date from all sports."""
+    if target_date is None:
+        target_date = datetime.now()
+        
+    target_str_1 = target_date.strftime('%d-%b-%Y') # e.g. 29-Nov-2025
+    target_str_2 = target_date.strftime('%Y-%m-%d') # e.g. 2025-11-29
     
     all_fixtures = []
     
@@ -348,11 +351,10 @@ def get_todays_schedule():
                     df.columns = [c.strip() for c in df.columns]
                     
                     if 'Date' in df.columns:
-                        # Filter for today
-                        # We check if the Date column contains today's date string
-                        # This is a simple string match for now
-                        today_df = df[df['Date'].astype(str).str.contains(today_str_1, case=False) | 
-                                      df['Date'].astype(str).str.contains(today_str_2, case=False)].copy()
+                        # Filter for target date
+                        # We check if the Date column contains the target date string
+                        today_df = df[df['Date'].astype(str).str.contains(target_str_1, case=False) | 
+                                      df['Date'].astype(str).str.contains(target_str_2, case=False)].copy()
                         
                         if not today_df.empty:
                             today_df['Sport'] = sport
@@ -606,12 +608,18 @@ else:
     tab1, tab2, tab3 = st.tabs(["📅 Schedule", "🏅 Sports", "🎭 Cultural"])
 
     with tab1:
-        st.header(f"Today's Schedule ({datetime.now().strftime('%d-%b-%Y')})")
-        schedule_df = get_todays_schedule()
+        col_header, col_date = st.columns([3, 1])
+        with col_date:
+            selected_date = st.date_input("Select Date", value=datetime.now())
+        
+        with col_header:
+            st.header(f"Schedule for {selected_date.strftime('%d-%b-%Y')}")
+            
+        schedule_df = get_todays_schedule(selected_date)
         if not schedule_df.empty:
             st.dataframe(schedule_df, use_container_width=True, hide_index=True)
         else:
-            st.info("No matches scheduled for today.")
+            st.info(f"No matches scheduled for {selected_date.strftime('%d-%b-%Y')}.")
 
     with tab2:
         st.header("Sports Overall Standings")
