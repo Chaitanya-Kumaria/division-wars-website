@@ -1,0 +1,14 @@
+Lawn Tennis Singles Rules
+
+1. Format
+   - Singles category.
+   - Matches played as best of 3 sets (or specific tournament rules).
+   - Standard tennis scoring (15, 30, 40, Deuce, Advantage).
+
+2. Points
+   - Win: 2 points
+   - Loss: 0 points
+
+3. General
+   - All standard ITF rules apply.
+   - Umpire's decision is final.
