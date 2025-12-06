@@ -603,6 +603,7 @@ else:
     # Final Points Table
     st.subheader("Final Points Table")
     st.dataframe(final_df, use_container_width=True, hide_index=True)
+    st.markdown("*C-suite has +1 for Tug-of-War")
 
     # Tabs
     tab1, tab2, tab3 = st.tabs(["📅 Schedule", "🏅 Sports", "🎭 Cultural"])
